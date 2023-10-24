@@ -1,35 +1,53 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home/Home";
-import About from './../pages/About/About';
-import Services from "../pages/Services/Services";
-import Blog from './../pages/Blog/Blog';
-import Contact from './../pages/Contact/Contact';
+import AddTeams from '../pages/AddTeams/AddTeams';
+import AddProducts from "../pages/AddProducts/AddProducts";
+import AddServices from "../pages/AddServices/AddServices";
+import Cart from "../pages/Cart/Cart";
+import Details from "../pages/Home/Services/Details/Details";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/SignUp/SignUp";
 
 const Router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
-        children:[
+        children: [
             {
-                path:"/",
-                element:<Home/>
+                path: "/",
+                loader: () => fetch("http://localhost:3000/servicesData"),
+                element: <Home />
             },
             {
-                path:"/about",
-                element:<About/>
+                path: "/addProducts",
+                element: <AddProducts />
             },
             {
-                path:"/services",
-                element:<Services/>
+                path: "/addTeams",
+                element: <AddTeams />
             },
             {
-                path:"/blog",
-                element:<Blog/>
+                path: "/addServices",
+                element: <AddServices />
             },
             {
-                path:"/contact",
-                element:<Contact/>
+                path: "/cart/:email",
+                loader:({params})=>fetch(`http://localhost:3000/cart/${params.email}`),
+                element: <Cart />
+            },
+            {
+                path: "/details/:id",
+                loader: ({ params }) => fetch(`http://localhost:3000/servicesData/${params.id}`),
+                element: <Details />
+            },
+            {
+                path: "/login",
+                element: <Login />
+            },
+            {
+                path: "/signUp",
+                element: <SignUp />
             }
         ]
     }
