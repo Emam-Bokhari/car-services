@@ -1,5 +1,5 @@
 
-const CartTable = ({data,color,hover,scale,duration,cursor}) => {
+const CartTable = ({data,color,hover,scale,duration,cursor,handleDeleteCart}) => {
     console.log(data);
     const {servicesData:{serviceName,servicePrice},_id}=data||{}
     
@@ -12,6 +12,7 @@ const CartTable = ({data,color,hover,scale,duration,cursor}) => {
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
+            handleDeleteCart(_id)
         })
     }
     
@@ -23,7 +24,7 @@ const CartTable = ({data,color,hover,scale,duration,cursor}) => {
                 <p className=" py-3 px-6" >01</p>
                 <p className="py-3 px-6 ">{serviceName}</p>
                 <p className="py-3 px-6 " >{servicePrice}</p>
-                <div className="py-3 px-6 " ><button onClick={()=>handleDelete(_id)} className="bg-[#FF3811] px-3 py-1 text-white font-bold rounded" >Confirm</button></div>
+                <div className="py-3 px-6 " ><button onClick={()=>handleDelete(_id)} className="bg-[#FF3811] px-3 py-1 text-white font-bold rounded" >Delete</button></div>
             </div>
         </div>
     );

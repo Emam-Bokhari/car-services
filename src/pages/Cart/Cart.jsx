@@ -1,10 +1,18 @@
 import { useLoaderData } from "react-router-dom";
 import CartTable from "./CartTable";
+import { useState } from "react";
 
 
 const Cart = () => {
 
     const cartData = useLoaderData()
+
+    const [cart,setCart]=useState(cartData)
+
+    const handleDeleteCart=(cartId)=>{
+        const updatedCart=cart.filter(item=>item._id!==cartId)
+        setCart(updatedCart)
+    }
 
     const rowColors = ['bg-[#F3F3F3]', 'bg-[#D0D0D0]'];
 
@@ -32,7 +40,7 @@ const Cart = () => {
             </div>
 
             <div>
-                {cartData?.map((item,index)=><CartTable key={index} data={item}  color={rowColors[index % rowColors.length]} hover={hoverColors[index%hoverColors.length]} scale={scale[index%scale.length]} duration={duration[index%duration.length]} cursor={cursor[index%cursor.length]} />)}
+                {cart?.map((item,index)=><CartTable key={index} data={item}  color={rowColors[index % rowColors.length]} hover={hoverColors[index%hoverColors.length]} scale={scale[index%scale.length]} duration={duration[index%duration.length]} cursor={cursor[index%cursor.length]} handleDeleteCart={handleDeleteCart} />)}
             </div>
 
 
